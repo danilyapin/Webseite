@@ -1,0 +1,12 @@
+# Frontend (React)
+Frontend/node_modules
+Frontend/build
+
+# Backend (Spring Boot)
+Backend/target
+Backend/*.iml
+Backend/.idea
+Backend/out
+
+# Allgemein
+.env
