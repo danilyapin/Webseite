@@ -1,0 +1,274 @@
+body, html {
+  margin: 0 auto;
+  padding: 0px;
+  height: auto;
+  max-width: 1400px;
+  background-color: #f2f2f2;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body .container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.bg-custom {
+  background-color: #1F78C8;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.navbar-brand {
+  margin-right: 20px;
+}
+
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar .bi {
+  color: #1F78C8; /* Farbe der Icons */
+  font-size: 2rem; /* Größe der Icons */
+  transition: transform 0.3s ease; /* Übergangsanimation */
+  display: inline-block; /* Stellt sicher, dass transform funktioniert */
+  padding: 0 10px; /* Sorgt dafür, dass die Navbar nicht am Rand klebt */
+}
+
+.navbar {
+  position: relative; /* Schatten nur nach unten */
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* Abstand vom unteren Rand */
+  width: 100%; /* Breite des gesamten Elements */
+  height: 8px; /* Höhere Höhe für einen weicheren Schatten */
+  border-radius: 0 0 10px 10px; /* Runde Ecken nur unten */
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .bi + .bi {
+  margin-left: 20px; /* Abstand zwischen den Icons */
+}
+
+.navbar .bi:first-child {
+  margin-right: 15px;  /* Abstand zwischen den Icons */
+}
+
+.navbar .bi:hover {
+  transform: translateY(-5px); /* Bewegt das Icon nach oben */
+}
+
+.navbar .d-flex {
+  margin-left: 0;
+}
+
+.navbar a {
+  text-decoration: none; /* Verhindert die Unterstreichung der Links */
+}
+
+.small-logo {
+  display: none;
+}
+
+.text-box {
+  max-width: 800px !important;  /* Maximale Breite */
+  width: 100% !important;       /* Wenn der Bildschirm kleiner wird, soll der Text die volle Breite einnehmen */
+  text-align: left;
+}
+
+.text-box p {
+  text-align: left !important;  /* Verhindert das Überschreiben von Bootstrap */
+}
+
+.custom-btn {
+  background-color: #1F78C8 !important;
+  color: white !important; /* Weiß für den Text */
+  border: none; /* Entfernt den Standardrand */
+}
+
+.custom-btn:hover {
+  background-color: #155e8b !important; /* Dunklere Farbe bei Hover */
+}
+
+.custom-btn-white {
+  background-color: white !important;
+  color: black  !important; /* Textfarbe ist Blau */
+  border: 2px solid #1F78C8; /* Blaues Border */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-btn-white:hover {
+  background-color: #f0f0f0 !important; /* Leicht dunkleres Weiß bei Hover */
+  color: black !important; /* Textfarbe wird Schwarz */
+}
+
+.btn-anschauen {
+  background-color: #1F78C8 !important;
+  color: white !important; /* Weiß für den Text */
+  border: none; /* Entfernt den Standardrand */
+}
+
+.btn-anschauen:hover {
+  background-color: #155e8b !important; /* Dunklere Farbe bei Hover */
+}
+
+.custom-button {
+  background-color: #1F78C8 !important;
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #155e8b !important;
+}
+
+.btn-custom {
+  background-color: #1F78C8 !important;
+  color: white !important; /* Weiß für den Text */
+  border: none !important;
+  transition: background-color 0.3s ease; /* Sanfter Übergang bei Hover */
+}
+
+.btn-custom:hover {
+  background-color: #155e8b !important; /* Dunklerer Blauton bei Hover */
+}
+
+.article-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-title {
+  min-height: 50px; /* Setzt eine Mindesthöhe für die Titel */
+  text-align: center;
+}
+
+.card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Langsamere Animation */
+}
+
+/* Artikel-Karten (Standard-Zustand) */
+.artikel-card {
+  transform: scale(1); /* Startgröße normal */
+}
+
+/* Hover-Effekt */
+.artikel-card:hover {
+  transform: scale(1.01); /* Leicht größer beim Hover */
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Login & Register Karten (Kein Hover) */
+.auth-card {
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Schatten für die Bild Card */
+.image-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.image-card:hover {
+  transform: translateY(-5px); /* Bild wird beim Hover leicht verschoben */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); /* Dunklerer Schatten bei Hover */
+}
+
+/* Schatten für die Info Card */
+.info-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px); /* Info-Box wird beim Hover leicht verschoben */
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); /* Dunklerer Schatten bei Hover */
+}
+
+/* Verhindert, dass die Info-Box bei Hover wächst */
+.info-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Stellt sicher, dass die Box immer die gleiche Höhe hat */
+    transition: transform 0.3s ease; /* Übergangsanimation für die Box */
+}
+
+.info-card:hover {
+    transform: none; /* Verhindert Veränderung der Box-Größe */
+}
+
+.info-card .card-body {
+    max-height: 400px;
+    overflow-y: auto; /* Ermöglicht Scrollen, wenn der Inhalt zu lang ist */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Stellt sicher, dass die Card die gesamte Höhe einnimmt */
+    padding-bottom: 10px; /* Fügt einen Abstand von 10px zum unteren Rand der Card hinzu */
+}
+
+/* Verhindert das Vergrößern der Card-Inhalte */
+.info-card:hover .card-body {
+    transform: none; /* Keine Veränderung der Card-Inhalte */
+}
+
+/* Button nach unten verschieben und einen Abstand von 10px unten lassen */
+.info-card .btn {
+    margin-top: auto; /* Verschiebt den Button nach unten */
+    margin-bottom: 10px; /* Abstand zum unteren Rand der Card */
+}
+
+/* Optional: Mehr Abstand zwischen den Boxen */
+.row {
+    margin: 0;
+}
+
+.list-group-item-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  border: 1px solid #ddd; /* Optional: Rand um die Listenelemente */
+  border-radius: 8px; /* Abgerundete Ecken für das Listenelement */
+  transition: all 0.3s ease; /* Sanfte Übergänge bei Hover */
+}
+
+@media (max-width: 599px) {
+  .normal-logo {
+      display: none;
+  }
+  .small-logo {
+      display: block;
+      width: 200px !important;
+      height: 57px !important;
+  }
+}
