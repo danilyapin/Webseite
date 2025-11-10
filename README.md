@@ -90,7 +90,7 @@ um den Projektfortschritt und die Funktionsweise des Systems zu dokumentieren.
 
 ---
 
-## 💻 Deployment
+## Deployment
 
 Das Projekt wurde **nicht online bereitgestellt**,  
 da im Rahmen der Abschlussprüfung **kein Deployment vorgesehen** war.  
