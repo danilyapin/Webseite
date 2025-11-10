@@ -63,7 +63,7 @@ Der Fokus lag auf:
 - React
 - React-Bootstrap für UI-Komponenten und Layout
 - CSS3 / eigene Styles für Anpassungen
-- react-datepicker für Kalender & Verfügbarkeit
+- react-datepicker für Kalender und Verfügbarkeit
 - react-quill für Rich-Text-Felder
 - Bootstrap Icons für Symbole
 - Axios für API-Aufrufe
