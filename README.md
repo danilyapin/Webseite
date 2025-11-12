@@ -83,7 +83,7 @@ um den Projektfortschritt und die Funktionsweise des Systems zu dokumentieren.
 - Buchungslogik und E-Mail-Funktion
 
 ### Woche 2 – Frontend und Integration
-- Benutzeroberfläche mit Thymeleaf und Bootstrap entwickelt  
+- Benutzeroberfläche mit Bootstrap entwickelt  
 - Kalender zur Verfügbarkeitsprüfung integriert  
 - Kunden- und Adminfunktionen implementiert  
 - Testphase und Vorbereitung der Präsentation und Dokumentation
