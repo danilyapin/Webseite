@@ -1,49 +1,30 @@
 package abschlussprojekt.webseite.Controller;
 
-import abschlussprojekt.webseite.DTO.LoginRequest;
-import abschlussprojekt.webseite.DTO.LoginResponse;
-import abschlussprojekt.webseite.Models.Benutzer;
-import abschlussprojekt.webseite.Repository.BenutzerRepository;
-import abschlussprojekt.webseite.Util.JwtTokenUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import abschlussprojekt.webseite.DTO.Login.LoginRequest;
+import abschlussprojekt.webseite.DTO.Login.LoginResponse;
+import abschlussprojekt.webseite.Service.LoginService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class LoginController {
 
-    @Autowired
-    private BenutzerRepository benutzerRepository;
+    private final LoginService loginService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        Benutzer benutzer = benutzerRepository.findByEmail(loginRequest.getEmail()).orElse(null);
-        if (benutzer == null) {
-            return ResponseEntity.badRequest().body("Benutzer nicht gefunden");
+        try {
+            LoginResponse response = loginService.login(loginRequest);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e){
+            return ResponseEntity.internalServerError().body("Fehler beim Login: " + e.getMessage());
         }
-
-        // Passwort prüfen
-        boolean passwordCorrect = passwordEncoder.matches(loginRequest.getPasswort(), benutzer.getPasswort());
-        if (!passwordCorrect) {
-            return ResponseEntity.badRequest().body("Ungültige Anmeldedaten – Passwort stimmt nicht");
-        }
-
-        // Token erstellen
-        String token = jwtTokenUtil.generateToken(benutzer.getEmail(), benutzer.getRole());  // Dein Token-Generator für JWT
-        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
-
