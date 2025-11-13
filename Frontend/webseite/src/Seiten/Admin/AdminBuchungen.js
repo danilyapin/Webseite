@@ -18,46 +18,27 @@ function AdminDashboard() {
     };
 
     useEffect(() => {
-        fetchBuchungen();
-    }, []);
-
-    const fetchBuchungen = () => {
         const token = localStorage.getItem('token');
 
-        // Überprüfen, ob der Token vorhanden ist
-        if (!token) {
-            console.error("Kein Token gefunden. Bitte anmelden.");
-            return; // Abbrechen, falls kein Token vorhanden ist
-        }
-
-        // API-Aufruf mit dem Token
-        axios.get('http://localhost:8081/api/buchungen', {
+        axios.get('/api/buchungen', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
             .then((response) => {
-                console.log("API-Antwort:", response.data);
-
-                // Sicherstellen, dass die Antwort ein Array ist
                 const daten = Array.isArray(response.data)
                     ? response.data
-                    : Array.isArray(response.data?.data)
-                        ? response.data.data
-                        : [];
-
+                    : Array.isArray(response.data?.data) ? response.data.data : [];
                 setBuchungen(daten);
             })
             .catch((error) => {
                 if (error.response && error.response.status === 401) {
                     console.error("Fehler 401: Unauthorized - Der Token ist ungültig oder abgelaufen.");
-                    // Hier kannst du den Benutzer zur Login-Seite weiterleiten
-                    // history.push('/login'); // Falls du React Router verwendest
                 } else {
                     console.error("Fehler beim Abrufen der Buchungen", error);
                 }
             });
-    };
+    }, []);
 
     const handleShowDetails = (buchung) => {
         setSelectedBuchung(buchung);
@@ -72,7 +53,7 @@ function AdminDashboard() {
     const handleDelete = () => {
         if (!deleteId) return;
 
-        axios.delete(`http://localhost:8081/api/buchungen/${deleteId}`)
+        axios.delete(`/api/buchungen/${deleteId}`)
             .then(() => {
                 setBuchungen(prev => prev.filter(b => b.id !== deleteId));
                 setShowDeleteModal(false);
@@ -85,24 +66,34 @@ function AdminDashboard() {
     return (
         <div className="container mt-4">
             <h2>Buchungsauslastung</h2>
-            <table className="table">
-                <thead>
+
+            {Array.isArray(buchungen) && buchungen.length === 0 ? (
+                <div className="d-flex flex-column justify-content-center align-items-center text-center">
+                    <div style={{ fontSize: "1.5rem", color: "#555" }}>
+                        Es sind aktuell keine Buchungen verfügbar.
+                    </div>
+                    <p className="text-muted mt-2">
+                        Schauen Sie später noch einmal oder kontaktieren Sie uns für weitere Informationen.
+                    </p>
+                </div>
+            ) : (
+                <table className="table">
+                    <thead>
                     <tr>
                         <th>Artikelnummer</th>
                         <th>Belegte Zeiträume</th>
                         <th>Aktionen</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {Array.isArray(buchungen) && buchungen.map((buchung) => (
+                    </thead>
+                    <tbody>
+                    {buchungen.map((buchung) => (
                         <tr key={buchung.id}>
                             <td>
                                 <div>{buchung.artikelnummer}</div>
                                 <div className="text-muted" style={{ fontSize: '0.9em' }}>Buchung-ID: {buchung.id}</div>
                             </td>
                             <td>
-                                {formatDate(buchung.mieteBegin)} bis{" "}
-                                {formatDate(buchung.mieteEnde)}
+                                {formatDate(buchung.mieteBegin)} bis {formatDate(buchung.mieteEnde)}
                             </td>
                             <td>
                                 <Button className="custom-btn" onClick={() => handleShowDetails(buchung)}>
@@ -118,18 +109,17 @@ function AdminDashboard() {
                             </td>
                         </tr>
                     ))}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            )}
 
-            {/* Modal für Details */}
-            <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
+    <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Buchungsdetails</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{ maxHeight: '70vh', overflowY: 'auto' }}>
                     {selectedBuchung ? (
                         <>
-                            {/* Kontaktbereich mit Margins nur für die h5 */}
                             <div className="">
                                 <h5 className="mb-3 mt-3">Kontakt:</h5>
                                 <div className="row">
@@ -150,8 +140,6 @@ function AdminDashboard() {
                                 </div>
                             </div>
                             <hr />
-
-                            {/* Lieferadresse und Abholadresse nebeneinander mit Margins */}
                             <div className="row">
                                 <div className="col-md-6">
                                     <h5 className="mb-4 mt-3">Lieferadresse:</h5>
@@ -168,9 +156,8 @@ function AdminDashboard() {
                                 </div>
                             </div>
 
-                            <hr /> {/* Linie zur Trennung */}
+                            <hr />
 
-                            {/* Zusatzinfos */}
                             <div className="mb-4">
                                 <h5>Zusätzliche Informationen:</h5>
                                 <p>{selectedBuchung.zusatzInfo}</p>
@@ -186,8 +173,6 @@ function AdminDashboard() {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* Modal zum Löschen */}
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Buchung löschen</Modal.Title>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider';
+import { useAuth } from './AuthProvider';
 
-const AdminRoute = ({ children }) => {
+export const AdminRoute = ({ children }) => {
     const { isLoggedIn, userRole, isLoading } = useAuth();
 
     if (isLoading) {
-        return null;
+        return <p>Lädt...</p>;
     }
 
     if (!isLoggedIn || userRole !== 'ROLE_ADMIN') {
