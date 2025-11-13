@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 function ArtikelBearbeiten() {
     const { id } = useParams();
@@ -10,25 +12,49 @@ function ArtikelBearbeiten() {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [alertVisible, setAlertVisible] = useState(false);
+    const [preview, setPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8081/api/artikel/${id}`)
-            .then(response => {
+        setLoading(true);
+        axios
+            .get(`/api/artikel/${id}`)
+            .then((response) => {
                 const data = response.data;
-                setArtikel({ ...data, bild: null }); // damit bei neuem Upload keine Verwechslung
-                console.log(response.data)
+                setArtikel(data);
+                setPreview(data.bild || null);
+                setLoading(false);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error("Fehler beim Laden des Artikels:", error);
+                setLoading(false);
             });
     }, [id]);
 
+    if (loading) {
+        return (
+            <div
+                className="d-flex flex-column justify-content-center align-items-center"
+                style={{ height: "50vh" }}
+            >
+                <Spinner animation="border" role="status" className="mb-3" />
+                <p>Lade Artikel, bitte warten...</p>
+            </div>
+        );
+    }
+
     if (!artikel) {
-        return <p>Lade Artikel...</p>;
+        return (
+            <Alert variant="danger">Artikel konnte nicht geladen werden!</Alert>
+        );
     }
 
     const handleChange = (e) => {
         setArtikel({ ...artikel, [e.target.name]: e.target.value });
+    };
+
+    const handleBeschreibungChange = (value) => {
+        setArtikel({ ...artikel, beschreibung: value });
     };
 
     const handleImageUpload = (e) => {
@@ -44,6 +70,7 @@ function ArtikelBearbeiten() {
                 }, 5000);
             } else {
                 setArtikel({ ...artikel, bild: file });
+                setPreview(URL.createObjectURL(file));
             }
         }
     };
@@ -69,7 +96,7 @@ function ArtikelBearbeiten() {
         }
 
         try {
-            await axios.put(`http://localhost:8081/api/artikel/${id}`, formData, {
+            await axios.put(`/api/artikel/${id}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -81,7 +108,7 @@ function ArtikelBearbeiten() {
             }, 2000);
         } catch (error) {
             console.error("Fehler beim Aktualisieren des Artikels:", error);
-            setError("Fehler beim Aktualisieren. Bitte versuche es erneut.");
+            setError("Fehler beim Aktualisieren");
             setAlertVisible(true);
         }
     };
@@ -97,58 +124,103 @@ function ArtikelBearbeiten() {
                     borderRadius: "8px",
                 }}
             >
-                {error && alertVisible && (
+                {error &&
+                    alertVisible &&
                     <Alert variant="danger">{error}</Alert>
-                )}
-                {success && (
-                    <Alert variant="success">{success}</Alert>
-                )}
+                }
+                {success &&
+                    <Alert variant="success">{success}
+                    </Alert>}
 
                 <Form.Group className="mb-3 text-center">
                     <img
-                        src={
-                            artikel.bild
-                                ? URL.createObjectURL(artikel.bild) // Wenn ein Bild hochgeladen wurde, zeige dieses
-                                : artikel.bild_pfad
-                                    ? `http://localhost:8081${artikel.bild_pfad}`
-                                    : "/default-image.png"
-                        }
+                        src={preview || "/default-image.png"}
                         className="card-img-top p-3"
                         alt={artikel.titel}
-                        style={{ height: "200px", objectFit: "contain" }}
+                        style={{
+                            height: "200px",
+                            objectFit: "contain",
+                        }}
                     />
-
-                    <Form.Control type="file" accept="image/*" onChange={handleImageUpload} />
+                    <Form.Control
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Titel</Form.Label>
-                    <Form.Control type="text" name="titel" value={artikel.titel || ""} onChange={handleChange} required />
+                    <Form.Control
+                        type="text"
+                        name="titel"
+                        value={artikel.titel || ""}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Beschreibung</Form.Label>
-                    <Form.Control as="textarea" rows={3} name="beschreibung" value={artikel.beschreibung || ""} onChange={handleChange} required />
+                    <ReactQuill
+                        theme="snow"
+                        value={artikel.beschreibung || ""}
+                        onChange={handleBeschreibungChange}
+                        modules={{
+                            toolbar: [
+                                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                                ["bold", "italic", "underline", "strike"],
+                                [{ list: "ordered" }, { list: "bullet" }],
+                                ["link", "image"],
+                                ["clean"],
+                            ],
+                        }}
+                        style={{ minHeight: "200px", marginBottom: "15px" }}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>EAN Nummer</Form.Label>
-                    <Form.Control type="text" name="eanNummer" value={artikel.eanNummer || ""} onChange={handleChange} />
+                    <Form.Control
+                        type="text"
+                        name="eanNummer"
+                        value={artikel.eanNummer || ""}
+                        onChange={handleChange}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Artikelnummer</Form.Label>
-                    <Form.Control type="text" name="artikelnummer" value={artikel.artikelnummer || ""} onChange={handleChange} readOnly />
+                    <Form.Label>
+                        Artikelnummer{" "}
+                        <small className="text-muted">(nicht änderbar)</small>
+                    </Form.Label>
+                    <Form.Control
+                        type="text"
+                        name="artikelnummer"
+                        value={artikel.artikelnummer || ""}
+                        readOnly
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Preis</Form.Label>
-                    <Form.Control type="number" step="0.01" name="preis" value={artikel.preis || ""} onChange={handleChange} required />
+                    <Form.Control
+                        type="number"
+                        step="0.01"
+                        name="preis"
+                        value={artikel.preis || ""}
+                        onChange={handleChange}
+                        required
+                    />
                 </Form.Group>
 
                 <div className="d-flex justify-content-center gap-3">
-                    <Button type="submit" variant="success">Aktualisieren</Button>
-                    <Button className="custom-btn" onClick={() => navigate(-1)}>Abbrechen</Button>
+                    <Button type="submit" variant="success">
+                        Aktualisieren
+                    </Button>
+                    <Button variant="secondary" className="custom-btn" onClick={() => navigate(-1)}>
+                        Abbrechen
+                    </Button>
                 </div>
             </Form>
         </Container>

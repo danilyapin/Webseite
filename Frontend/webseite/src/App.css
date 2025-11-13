@@ -39,38 +39,38 @@ body .container-fluid {
 }
 
 .navbar .bi {
-  color: #1F78C8; /* Farbe der Icons */
-  font-size: 2rem; /* Größe der Icons */
-  transition: transform 0.3s ease; /* Übergangsanimation */
-  display: inline-block; /* Stellt sicher, dass transform funktioniert */
-  padding: 0 10px; /* Sorgt dafür, dass die Navbar nicht am Rand klebt */
+  color: #1F78C8;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  padding: 0 10px;
 }
 
 .navbar {
-  position: relative; /* Schatten nur nach unten */
+  position: relative;
 }
 
 .navbar::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -5px; /* Abstand vom unteren Rand */
-  width: 100%; /* Breite des gesamten Elements */
-  height: 8px; /* Höhere Höhe für einen weicheren Schatten */
-  border-radius: 0 0 10px 10px; /* Runde Ecken nur unten */
+  bottom: -5px;
+  width: 100%;
+  height: 8px;
+  border-radius: 0 0 10px 10px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar .bi + .bi {
-  margin-left: 20px; /* Abstand zwischen den Icons */
+  margin-left: 20px;
 }
 
 .navbar .bi:first-child {
-  margin-right: 15px;  /* Abstand zwischen den Icons */
+  margin-right: 15px;
 }
 
 .navbar .bi:hover {
-  transform: translateY(-5px); /* Bewegt das Icon nach oben */
+  transform: translateY(-5px);
 }
 
 .navbar .d-flex {
@@ -78,7 +78,7 @@ body .container-fluid {
 }
 
 .navbar a {
-  text-decoration: none; /* Verhindert die Unterstreichung der Links */
+  text-decoration: none;
 }
 
 .small-logo {
@@ -86,45 +86,44 @@ body .container-fluid {
 }
 
 .text-box {
-  max-width: 800px !important;  /* Maximale Breite */
-  width: 100% !important;       /* Wenn der Bildschirm kleiner wird, soll der Text die volle Breite einnehmen */
+  max-width: 800px !important;
   text-align: left;
 }
 
 .text-box p {
-  text-align: left !important;  /* Verhindert das Überschreiben von Bootstrap */
+  text-align: left !important;
 }
 
 .custom-btn {
   background-color: #1F78C8 !important;
-  color: white !important; /* Weiß für den Text */
-  border: none; /* Entfernt den Standardrand */
+  color: white !important;
+  border: none;
 }
 
 .custom-btn:hover {
-  background-color: #155e8b !important; /* Dunklere Farbe bei Hover */
+  background-color: #155e8b !important;
 }
 
 .custom-btn-white {
   background-color: white !important;
-  color: black  !important; /* Textfarbe ist Blau */
-  border: 2px solid #1F78C8; /* Blaues Border */
+  color: black  !important;
+  border: 2px solid #1F78C8;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .custom-btn-white:hover {
-  background-color: #f0f0f0 !important; /* Leicht dunkleres Weiß bei Hover */
-  color: black !important; /* Textfarbe wird Schwarz */
+  background-color: #f0f0f0 !important;
+  color: black !important;
 }
 
 .btn-anschauen {
   background-color: #1F78C8 !important;
-  color: white !important; /* Weiß für den Text */
-  border: none; /* Entfernt den Standardrand */
+  color: white !important;
+  border: none;
 }
 
 .btn-anschauen:hover {
-  background-color: #155e8b !important; /* Dunklere Farbe bei Hover */
+  background-color: #155e8b !important;
 }
 
 .custom-button {
@@ -140,13 +139,13 @@ body .container-fluid {
 
 .btn-custom {
   background-color: #1F78C8 !important;
-  color: white !important; /* Weiß für den Text */
+  color: white !important;
   border: none !important;
-  transition: background-color 0.3s ease; /* Sanfter Übergang bei Hover */
+  transition: background-color 0.3s ease;
 }
 
 .btn-custom:hover {
-  background-color: #155e8b !important; /* Dunklerer Blauton bei Hover */
+  background-color: #155e8b !important;
 }
 
 .article-container {
@@ -167,99 +166,90 @@ body .container-fluid {
 }
 
 .article-title {
-  min-height: 50px; /* Setzt eine Mindesthöhe für die Titel */
+  min-height: 50px;
   text-align: center;
 }
 
 .card {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Langsamere Animation */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Artikel-Karten (Standard-Zustand) */
 .artikel-card {
-  transform: scale(1); /* Startgröße normal */
+  transform: scale(1);
 }
 
-/* Hover-Effekt */
 .artikel-card:hover {
-  transform: scale(1.01); /* Leicht größer beim Hover */
+  transform: scale(1.01);
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
 }
 
-/* Login & Register Karten (Kein Hover) */
 .auth-card {
   max-width: 600px;
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Schatten für die Bild Card */
 .image-card {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .image-card:hover {
-  transform: translateY(-5px); /* Bild wird beim Hover leicht verschoben */
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); /* Dunklerer Schatten bei Hover */
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Schatten für die Info Card */
 .info-card {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .info-card:hover {
-  transform: translateY(-5px); /* Info-Box wird beim Hover leicht verschoben */
-  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25); /* Dunklerer Schatten bei Hover */
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Verhindert, dass die Info-Box bei Hover wächst */
 .info-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Stellt sicher, dass die Box immer die gleiche Höhe hat */
-    transition: transform 0.3s ease; /* Übergangsanimation für die Box */
+    height: 100%;
+    transition: transform 0.3s ease;
 }
 
 .info-card:hover {
-    transform: none; /* Verhindert Veränderung der Box-Größe */
+    transform: none;
 }
 
 .info-card .card-body {
     max-height: 400px;
-    overflow-y: auto; /* Ermöglicht Scrollen, wenn der Inhalt zu lang ist */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Stellt sicher, dass die Card die gesamte Höhe einnimmt */
-    padding-bottom: 10px; /* Fügt einen Abstand von 10px zum unteren Rand der Card hinzu */
+    height: 100%;
+    padding-bottom: 10px;
 }
 
-/* Verhindert das Vergrößern der Card-Inhalte */
 .info-card:hover .card-body {
-    transform: none; /* Keine Veränderung der Card-Inhalte */
+    transform: none;
 }
 
-/* Button nach unten verschieben und einen Abstand von 10px unten lassen */
 .info-card .btn {
-    margin-top: auto; /* Verschiebt den Button nach unten */
-    margin-bottom: 10px; /* Abstand zum unteren Rand der Card */
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
-/* Optional: Mehr Abstand zwischen den Boxen */
 .row {
     margin: 0;
 }
 
 .list-group-item-shadow {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
-  border: 1px solid #ddd; /* Optional: Rand um die Listenelemente */
-  border-radius: 8px; /* Abgerundete Ecken für das Listenelement */
-  transition: all 0.3s ease; /* Sanfte Übergänge bei Hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 599px) {
