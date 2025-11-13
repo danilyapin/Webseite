@@ -1,6 +1,5 @@
 package abschlussprojekt.webseite.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -8,10 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     private static final String FROM_ADDRESS = "info.mm.display@gmail.com";
+
+    public EmailService(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     // Methode, um eine E-Mail an info@plasma-halter.de zu senden (nach der Buchung)
     public void sendBookingEmail(String artikelnummer, String ansprechpartner, String unternehmen, String email, String telefonnummer, String lieferStrasse, String lieferPLZ, String lieferOrt, String abholStrasse, String abholPLZ, String abholOrt, String mieteBegin, String mieteEnde, String zusatzinfo) {
