@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// Funktion, um das Datum im Format 'YYYY-MM-DD' zu formatieren
 const formatDate = (date) => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -17,7 +16,6 @@ const useQuery = () => new URLSearchParams(useLocation().search);
 
 function ArtikelFormular() {
     const navigate = useNavigate();
-    const location = useLocation();
     const query = useQuery();
     const artikelnummerFromQuery = query.get("artikelnummer");
 
@@ -37,7 +35,6 @@ function ArtikelFormular() {
         zusatzInfo: "",
     });
     const [artikelnummer, setArtikelnummer] = useState(null);
-    const [artikel, setArtikel] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [bookedDates, setBookedDates] = useState([]); // Array für gebuchte Daten
@@ -51,14 +48,12 @@ function ArtikelFormular() {
     useEffect(() => {
         if (!artikelnummer) return;
 
-        // Hole alle gebuchten Daten für den Artikel
-        axios.get(`http://localhost:8081/api/buchungen/alle-gebuchten-daten/${artikelnummer}`)
+        axios.get(`/api/buchungen/alle-gebuchten-daten/${artikelnummer}`)
             .then(response => {
-                // Hier filtern wir die gebuchten Tage und erstellen ein Array aus den "mieteBegin" und "mieteEnde" Werten
                 const bookedDatesArray = response.data.map(buchung => {
+
                     const startDate = new Date(buchung.mieteBegin);
                     const endDate = new Date(buchung.mieteEnde);
-                    // Für jedes Buchungsdatum nehmen wir den Zeitraum und fügen alle Tage in das Array ein
                     const dates = [];
                     let currentDate = startDate;
                     while (currentDate <= endDate) {
@@ -68,7 +63,6 @@ function ArtikelFormular() {
                     return dates;
                 });
 
-                // Kombinieren wir alle gebuchten Daten
                 const flatBookedDates = bookedDatesArray.flat();
                 setBookedDates(flatBookedDates);
             })
@@ -112,7 +106,7 @@ function ArtikelFormular() {
         };
 
         try {
-            const response = await fetch("http://localhost:8081/api/buchungen", {
+            const response = await fetch("/api/buchungen", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(rentalData),
@@ -123,7 +117,6 @@ function ArtikelFormular() {
             }
 
             const data = await response.json();
-
             setError(null);
 
             setTimeout(() => {
@@ -147,9 +140,9 @@ function ArtikelFormular() {
     return (
         <Container className="mt-4 mb-5" style={{ position: "relative" }}>
             <h2>Artikel mieten</h2>
-
-            {error && <Alert variant="danger">{error}</Alert>}
-
+            {error &&
+                <Alert variant="danger">{error}</Alert>
+            }
             <Form
                 onSubmit={handleSubmit}
                 style={{
@@ -167,44 +160,44 @@ function ArtikelFormular() {
                 </Row>
 
                 <Row className="mb-3">
-                    <Col md={6}><Form.Label>Unternehmen:</Form.Label><Form.Control name="unternehmen" value={customerInfo.unternehmen} onChange={handleChange} /></Col>
-                    <Col md={6}><Form.Label>Ansprechpartner:</Form.Label><Form.Control name="ansprechpartner" value={customerInfo.ansprechpartner} onChange={handleChange} /></Col>
+                    <Col md={6}><Form.Label>Unternehmen: *</Form.Label><Form.Control name="unternehmen" value={customerInfo.unternehmen} onChange={handleChange} /></Col>
+                    <Col md={6}><Form.Label>Ansprechpartner: *</Form.Label><Form.Control name="ansprechpartner" value={customerInfo.ansprechpartner} onChange={handleChange} /></Col>
                 </Row>
                 <Row className="mb-3">
-                    <Col md={6}><Form.Label>E-Mail:</Form.Label><Form.Control name="email" type="email" value={customerInfo.email} onChange={handleChange} /></Col>
-                    <Col md={6}><Form.Label>Telefon:</Form.Label><Form.Control name="telefon" value={customerInfo.telefon} onChange={handleChange} /></Col>
+                    <Col md={6}><Form.Label>E-Mail: *</Form.Label><Form.Control name="email" type="email" value={customerInfo.email} onChange={handleChange} /></Col>
+                    <Col md={6}><Form.Label>Telefon: *</Form.Label><Form.Control name="telefon" value={customerInfo.telefon} onChange={handleChange} /></Col>
                 </Row>
 
                 <hr />
-                <h4 className="mt-4 mb-2">Lieferadresse</h4>
+                <h4 className="mt-4 mb-2">Lieferadresse *</h4>
                 <Row className="mb-3">
                     <Col md={4}>
-                        <Form.Label>Straße:</Form.Label>
+                        <Form.Label>Straße: *</Form.Label>
                         <Form.Control name="lieferStrasse" value={customerInfo.lieferStrasse} onChange={handleChange} />
                     </Col>
                     <Col md={4}>
-                        <Form.Label>Postleitzahl:</Form.Label>
+                        <Form.Label>Postleitzahl: *</Form.Label>
                         <Form.Control name="lieferPLZ" value={customerInfo.lieferPLZ} onChange={handleChange} />
                     </Col>
                     <Col md={4}>
-                        <Form.Label>Ort:</Form.Label>
+                        <Form.Label>Ort: *</Form.Label>
                         <Form.Control name="lieferOrt" value={customerInfo.lieferOrt} onChange={handleChange} />
                     </Col>
                 </Row>
 
                 <hr />
-                <h4 className="mt-4 mb-2">Abholadresse</h4>
+                <h4 className="mt-4 mb-2">Abholadresse *</h4>
                 <Row className="mb-3">
                     <Col md={4}>
-                        <Form.Label>Straße:</Form.Label>
+                        <Form.Label>Straße: *</Form.Label>
                         <Form.Control name="abholStrasse" value={customerInfo.abholStrasse} onChange={handleChange} />
                     </Col>
                     <Col md={4}>
-                        <Form.Label>Postleitzahl:</Form.Label>
+                        <Form.Label>Postleitzahl: *</Form.Label>
                         <Form.Control name="abholPLZ" value={customerInfo.abholPLZ} onChange={handleChange} />
                     </Col>
                     <Col md={4}>
-                        <Form.Label>Ort:</Form.Label>
+                        <Form.Label>Ort: *</Form.Label>
                         <Form.Control name="abholOrt" value={customerInfo.abholOrt} onChange={handleChange} />
                     </Col>
                 </Row>
@@ -233,7 +226,7 @@ function ArtikelFormular() {
                             className="form-control"
                             minDate={new Date()}
                             placeholderText="Startdatum wählen"
-                            excludeDates={bookedDates} // Blockiert alle gebuchten Tage
+                            excludeDates={bookedDates}
                         />
                     </Col>
                     <Col md={6}>
@@ -245,7 +238,7 @@ function ArtikelFormular() {
                             className="form-control"
                             minDate={startDate || new Date()}
                             placeholderText="Enddatum wählen"
-                            excludeDates={bookedDates} // Blockiert alle gebuchten Tage
+                            excludeDates={bookedDates}
                         />
                     </Col>
                 </Row>
@@ -253,7 +246,7 @@ function ArtikelFormular() {
                 <div className="d-flex justify-content-center gap-3 mt-4">
                     <Button
                         type="submit"
-                        className="btn-custom"
+                        className="btn btn-success"
                         disabled={isLoading}
                     >
                         {isLoading ? <Spinner animation="border" size="sm" /> : "Mieten"}

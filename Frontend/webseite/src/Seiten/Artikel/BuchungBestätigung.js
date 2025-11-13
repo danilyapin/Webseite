@@ -14,7 +14,6 @@ function BuchungBestätigung() {
         );
     }
 
-    // Optional: Datum formatieren
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
         return date.toLocaleDateString("de-DE", {
