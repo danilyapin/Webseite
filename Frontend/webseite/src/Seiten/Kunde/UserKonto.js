@@ -18,19 +18,17 @@ function UserKonto() {
         return `${day}.${month}.${year}`;
     };
 
-    // Benutzerbuchungen laden
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        // Sicherstellen, dass der Benutzer eingeloggt ist
         if (token) {
-            axios.get('http://localhost:8081/api/buchungen', {
+            axios.get('/api/buchungen', {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Token an die Anfrage anhängen
+                    Authorization: `Bearer ${token}`,
                 },
             })
                 .then((response) => {
-                    setBuchungen(response.data); // Buchungen speichern
+                    setBuchungen(response.data);
                 })
                 .catch((err) => {
                     setError('Fehler beim Laden der Buchungen.');
@@ -43,16 +41,16 @@ function UserKonto() {
             setError('Kein Token gefunden.');
             setLoading(false);
         }
-    }, []); // Diese Anfrage wird einmal beim Laden des Components ausgeführt
+    }, []);
 
     const handleShowModal = (buchung) => {
         setSelectedBuchung(buchung);
-        setShowModal(true); // Modal öffnen
+        setShowModal(true);
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
-        setSelectedBuchung(null); // Modal schließen und Buchung zurücksetzen
+        setSelectedBuchung(null);
     };
 
     return (
@@ -72,12 +70,11 @@ function UserKonto() {
                             {buchungen.map((buchung, index) => (
                                 <div key={index} className="col-12 col-md-6 col-lg-4 mb-4">
                                     <div className="card h-100 shadow-sm d-flex flex-column">
-                                        {/* Buchungs-ID */}
+
                                         <div className="card-header">
                                             <h5 className="text-center">Buchungs-ID: {buchung.id}</h5>
                                         </div>
 
-                                        {/* Kurzansicht der Buchungsdetails */}
                                         <div className="card-body">
                                             <div className="mb-3">
                                                 <p><strong>Artikelnummer:</strong> {buchung.artikelnummer}</p>
@@ -85,7 +82,6 @@ function UserKonto() {
                                                 <p><strong>Mieteende:</strong> {formatDate(buchung.mieteEnde)}</p>
                                             </div>
 
-                                            {/* Button zum Öffnen des Modals */}
                                             <Button
                                                 className='btn-custom'
                                                 onClick={() => handleShowModal(buchung)}>
@@ -99,38 +95,43 @@ function UserKonto() {
                     )}
                 </>
             )}
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-danger">{error}</p>}
 
-            {/* Modal mit den Buchungsdetails */}
+            {loading &&
+                <p>Loading...</p>
+            }
+
+            {error &&
+                <p className="text-danger">{error}</p>
+            }
+
             {selectedBuchung && (
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Buchungsdetails</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {/* Lieferadresse */}
+
                         <h5>Lieferadresse:</h5>
                         <p><strong>Straße:</strong> {selectedBuchung.lieferStrasse}</p>
                         <p><strong>Ort:</strong> {selectedBuchung.lieferOrt}</p>
                         <p><strong>PLZ:</strong> {selectedBuchung.lieferPLZ}</p>
                         <hr />
 
-                        {/* Abholadresse */}
                         <h5>Abholadresse:</h5>
                         <p><strong>Straße:</strong> {selectedBuchung.abholStrasse}</p>
                         <p><strong>Ort:</strong> {selectedBuchung.abholOrt}</p>
                         <p><strong>PLZ:</strong> {selectedBuchung.abholPLZ}</p>
                         <hr />
 
-                        {/* Weitere Buchungsinformationen */}
                         <p><strong>Ansprechpartner:</strong> {selectedBuchung.ansprechpartner}</p>
                         <p><strong>Telefon:</strong> {selectedBuchung.telefon}</p>
                         <p><strong>Email:</strong> {selectedBuchung.email}</p>
                         <p><strong>Zusätzliche Infos:</strong> {selectedBuchung.zusatzInfo}</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseModal}>
+                        <Button className='btn-custom'
+                                onClick={handleCloseModal}
+                        >
                             Schließen
                         </Button>
                     </Modal.Footer>

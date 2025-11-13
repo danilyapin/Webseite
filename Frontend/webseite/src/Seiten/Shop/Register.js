@@ -1,22 +1,17 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Toast, ToastContainer } from 'react-bootstrap'; // ✅ Neu
+import { Toast, ToastContainer } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [unternehmen, setCompany] = useState('');
-    const [telefonnummer, setTelefonnummer] = useState('');
-    const [strasse, setStrasse] = useState('');
-    const [postleitzahl, setPostleitzahl] = useState('');
-    const [ort, setOrt] = useState('');
     const [passwort, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [showSuccessToast, setShowSuccessToast] = useState(false); // ✅ Neu
-    const [showErrorToast, setShowErrorToast] = useState(false); // Neu für Fehler
-    const [errorMessage, setErrorMessage] = useState(''); // Fehlernachricht
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [showErrorToast, setShowErrorToast] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     const handleRegister = (e) => {
@@ -31,17 +26,12 @@ function Register() {
         const userData = {
             name,
             email,
-            telefonnummer,
-            unternehmen,
-            strasse,
-            postleitzahl,
-            ort,
             passwort
         };
 
         setLoading(true);
 
-        axios.post('http://localhost:8081/api/register', userData)
+        axios.post('/api/register', userData)
             .then((response) => {
                 console.log('Erfolgreiche Registrierung:', response);
                 setShowSuccessToast(true);
@@ -75,45 +65,17 @@ function Register() {
                     <form onSubmit={handleRegister}>
                         <div className="row">
                             <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="firstName" className="form-label">Name</label>
-                                <input type="text" className="form-control" id="firstName" value={name} onChange={(e) => setName(e.target.value)} required />
+                                <label htmlFor="name" className="form-label">Name</label>
+                                <input type="text" className="form-control" id="email" value={name} onChange={(e) => setName(e.target.value)} required />
                             </div>
                             <div className="col-12 col-md-6 mb-3">
                                 <label htmlFor="email" className="form-label">E-Mail</label>
                                 <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="phoneNumber" className="form-label">Telefonnummer</label>
-                                <input type="tel" className="form-control" id="phoneNumber" value={telefonnummer} onChange={(e) => setTelefonnummer(e.target.value)} required />
-                            </div>
-                            <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="unternehmen" className="form-label">Unternehmen</label>
-                                <input type="text" className="form-control" id="unternehmen" value={unternehmen} onChange={(e) => setCompany(e.target.value)} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="strasse" className="form-label">Straße</label>
-                                <input type="text" className="form-control" id="strasse" value={strasse} onChange={(e) => setStrasse(e.target.value)} required />
-                            </div>
-                            <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="postleitzahl" className="form-label">Postleitzahl</label>
-                                <input type="text" className="form-control" id="postleitzahl" value={postleitzahl} onChange={(e) => setPostleitzahl(e.target.value)} required />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 col-md-6 mb-3">
-                                <label htmlFor="ort" className="form-label">Ort</label>
-                                <input type="text" className="form-control" id="ort" value={ort} onChange={(e) => setOrt(e.target.value)} required />
-                            </div>
                             <div className="col-12 col-md-6 mb-3">
                                 <label htmlFor="password" className="form-label">Passwort</label>
                                 <input type="password" className="form-control" id="password" value={passwort} onChange={(e) => setPassword(e.target.value)} required />
                             </div>
-                        </div>
-                        <div className="row">
                             <div className="col-12 col-md-6 mb-3">
                                 <label htmlFor="confirmPassword" className="form-label">Passwort wiederholen</label>
                                 <input type="password" className="form-control" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
@@ -131,27 +93,25 @@ function Register() {
                 </div>
             </div>
 
-            {/* ✅ Erfolgs-Toast */}
             <ToastContainer className="p-3"
                 style={{
                     position: 'fixed',
-                    bottom: `${window.scrollY - 330}px`, // Passt die Position dynamisch an
-                    left: '20px', // Positioniert den Toast links
-                    zIndex: 1050, // Stellt sicher, dass der Toast über anderen Elementen angezeigt wird
+                    bottom: `${window.scrollY - 330}px`,
+                    left: '20px',
+                    zIndex: 1050,
                 }}>
                 <Toast bg="success" show={showSuccessToast} onClose={() => setShowSuccessToast(false)} delay={2000} autohide>
                     <Toast.Body className="text-white">Registrierung erfolgreich! Sie können sich jetzt einloggen.</Toast.Body>
                 </Toast>
             </ToastContainer>
 
-            {/* ✅ Fehler-Toast */}
             <ToastContainer
                 className="p-3"
                 style={{
                     position: 'fixed',
-                    bottom: `${window.scrollY - 330}px`, // Passt die Position dynamisch an
-                    left: '20px', // Positioniert den Toast links
-                    zIndex: 1050, // Stellt sicher, dass der Toast über anderen Elementen angezeigt wird
+                    bottom: `${window.scrollY - 330}px`,
+                    left: '20px',
+                    zIndex: 1050,
                 }}
             >
                 <Toast bg="danger" show={showErrorToast} onClose={() => setShowErrorToast(false)} delay={5000} autohide>

@@ -4,23 +4,23 @@ import ArtikelListe from '../Artikel/ArtikelListe';
 function Startseite() {
     return (
         <div className="container my-4">
-            {/* Titel */}
-            <h1 className="text-left">Mietgeräte</h1>
+            <h1 className="text-left mb-4">Mietgeräte</h1>
 
-            {/* Text darunter */}
+            <div className="fs-5 text-muted" style={{ lineHeight: "1.7" }}>
             <p>
-                Sie möchten Zusatzinformationen zu Ihren Produkten anbieten und so Aufmerksamkeit erwecken?
-                Sie suchen Möglichkeiten zum Dialog und zur Interaktion mit Ihren Kunden und Besuchern?
-                Sie wollen mit weit sichtbaren Präsentationen Menschen auf Ihre Botschaft aufmerksam machen?
-                Oder brauchen Sie eine Video-Wall, Digital Signage Kioskgeräte oder Stelen für eine Veranstaltung?
-                Wir bieten Ihnen auch die Möglichkeit, einige unserer Geräte zu mieten.
-                Unser Mietpark beinhaltet diverse Standardgeräte, vom einfachen Bild-Videoplayer-Display,
-                über Digital Signage Stelen und Kiosk-Systeme bis hin zu Flachbildschirmen und Video Walls
-                in den unterschiedlichsten Bildschirmdiagonalen mit und ohne Transportcase.
+                Möchten Sie Ihre Produkte aufmerksamkeitsstark präsentieren und Zusatzinformationen anbieten?
+                Suchen Sie nach Möglichkeiten für den Dialog und die Interaktion mit Ihren Kunden und Besuchern?
+                Oder planen Sie eine Veranstaltung und benötigen passende Präsentationsgeräte?
+                Wir bieten Ihnen die Möglichkeit, ausgewählte Geräte aus unserem Mietpark zu leihen.
+                Dazu gehören Standardgeräte wie Bild- und Videoplayer-Displays, Digital Signage Stelen, Kiosk-Systeme
+                sowie Flachbildschirme und Video Walls in verschiedenen Bildschirmdiagonalen – mit oder ohne Transportcase.
+                So können Sie Ihre Botschaft wirkungsvoll präsentieren, ohne gleich in eine eigene Hardware investieren zu müssen.
+                Nutzen Sie die Flexibilität unseres Mietangebots für Veranstaltungen, Messen oder digitale Präsentationen.
             </p>
+            </div>
             <ArtikelListe />
         </div>
     );
 }
 
-export default Startseite
+export default Startseite;
