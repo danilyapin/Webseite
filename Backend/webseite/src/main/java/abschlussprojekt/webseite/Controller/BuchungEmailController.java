@@ -2,23 +2,26 @@ package abschlussprojekt.webseite.Controller;
 
 import abschlussprojekt.webseite.Models.Buchung;
 import abschlussprojekt.webseite.Service.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 
+@RestController
+@RequestMapping("/api")
 public class BuchungEmailController {
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    @PostMapping
+    public BuchungEmailController(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
+    @PostMapping("/buchung")
     public ResponseEntity<?> createBooking(@RequestBody Buchung buchung) {
-        System.out.println("E-Mail-Adresse in Backend: " + buchung.getEmail());
-
-        // Format der Daten (optional - für die Darstellung des Datums)
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
         // E-Mail an Admin senden
