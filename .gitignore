@@ -1,0 +1,23 @@
+# Node / Frontend
+node_modules/
+build/
+
+# Maven / Backend
+target/
+*.iml
+.idea/
+out/
+
+# IDEs
+.vscode/
+.DS_Store
+*.ipr
+*.iws
+.project
+.settings
+
+# Environment / Logs
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

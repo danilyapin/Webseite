@@ -1,0 +1,264 @@
+body, html {
+  margin: 0 auto;
+  padding: 0px;
+  height: auto;
+  max-width: 1400px;
+  background-color: #f2f2f2;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+  min-height: 100vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body .container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.bg-custom {
+  background-color: #1F78C8;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.navbar-brand {
+  margin-right: 20px;
+}
+
+.navbar-brand img {
+  height: 40px;
+  width: auto;
+}
+
+.navbar .bi {
+  color: #1F78C8;
+  font-size: 2rem;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.navbar {
+  position: relative;
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 8px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .bi + .bi {
+  margin-left: 20px;
+}
+
+.navbar .bi:first-child {
+  margin-right: 15px;
+}
+
+.navbar .bi:hover {
+  transform: translateY(-5px);
+}
+
+.navbar .d-flex {
+  margin-left: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.small-logo {
+  display: none;
+}
+
+.text-box {
+  max-width: 800px !important;
+  text-align: left;
+}
+
+.text-box p {
+  text-align: left !important;
+}
+
+.custom-btn {
+  background-color: #1F78C8 !important;
+  color: white !important;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #155e8b !important;
+}
+
+.custom-btn-white {
+  background-color: white !important;
+  color: black  !important;
+  border: 2px solid #1F78C8;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-btn-white:hover {
+  background-color: #f0f0f0 !important;
+  color: black !important;
+}
+
+.btn-anschauen {
+  background-color: #1F78C8 !important;
+  color: white !important;
+  border: none;
+}
+
+.btn-anschauen:hover {
+  background-color: #155e8b !important;
+}
+
+.custom-button {
+  background-color: #1F78C8 !important;
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #155e8b !important;
+}
+
+.btn-custom {
+  background-color: #1F78C8 !important;
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #155e8b !important;
+}
+
+.article-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.article-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 350px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-title {
+  min-height: 50px;
+  text-align: center;
+}
+
+.card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.artikel-card {
+  transform: scale(1);
+}
+
+.artikel-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.auth-card {
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.image-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.image-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.info-card {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.info-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: none;
+}
+
+.info-card .card-body {
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+.info-card:hover .card-body {
+    transform: none;
+}
+
+.info-card .btn {
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.row {
+    margin: 0;
+}
+
+.list-group-item-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 599px) {
+  .normal-logo {
+      display: none;
+  }
+  .small-logo {
+      display: block;
+      width: 200px !important;
+      height: 57px !important;
+  }
+}
